@@ -5,7 +5,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -15,16 +14,8 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            final Member member = new Member(1L, "HelloJPA");
-
-            final List<Member> resultList = entityManager.createQuery("select m from Member as m", Member.class).getResultList();
-            for (Member result : resultList) {
-                System.out.println("result = " + result);
-            }
-            System.out.println("BEFORE");
-            entityManager.persist(member);
-            System.out.println("AFTER");
-
+            final Member member = entityManager.find(Member.class, 100L);
+            member.setName("변경");
             transaction.commit();
         } catch (final Exception exception) {
             transaction.rollback();
