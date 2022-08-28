@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
-@Entity
+@Entity(name="Member")
 @Setter
 @ToString
 @FieldDefaults(level = PRIVATE)
