@@ -4,16 +4,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -25,15 +26,16 @@ import static lombok.AccessLevel.PROTECTED;
 public class Member {
     @Id
     Long id;
-    @Column(unique = true, length = 10, name = "name")
+    @Column(unique = true, length = 10, name = "name", updatable = false)
     String username;
-    Integer age;
+    @Column(precision = 19)
+    BigDecimal age;
     @Enumerated(EnumType.STRING)
     RoleType roleType;
-    @Temporal(TemporalType.TIMESTAMP)
-    Date createdDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    Date lastModifiedDate;
+    @CreationTimestamp
+    LocalDateTime createdDate;
+    @UpdateTimestamp
+    LocalDateTime lastModifiedDate;
     @Lob
     String description;
     @Transient
