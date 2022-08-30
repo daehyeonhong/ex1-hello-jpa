@@ -15,7 +15,7 @@ public class JpaMain {
 
         try {
             final Member member = entityManager.find(Member.class, 200L);
-            member.setName("AAAAA");
+            member.setUsername("AAAAA");
             entityManager.close();
             transaction.commit();
         } catch (final Exception exception) {
