@@ -7,18 +7,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import static javax.persistence.GenerationType.SEQUENCE;
+import javax.persistence.TableGenerator;
+import static javax.persistence.GenerationType.TABLE;
 import static lombok.AccessLevel.PRIVATE;
 
-@Entity(name = "Member")
+@Entity
 @Setter
 @ToString
 @FieldDefaults(level = PRIVATE)
-@SequenceGenerator(name = "MEMBER_SEQUENCE_GENERATOR", sequenceName = "MEMBER_SEQUENCE", allocationSize = 1)
+@TableGenerator(
+        name = "MEMBER_SEQUENCE_GENERATOR",
+        table = "MEMBER_SEQUENCE",
+        allocationSize = 1)
 public class Member {
     @Id
-    @GeneratedValue(strategy = SEQUENCE, generator = "MEMBER_SEQUENCE_GENERATOR")
+    @GeneratedValue(strategy = TABLE, generator = "MEMBER_SEQUENCE_GENERATOR")
     Long id;
     @Column(unique = true, length = 10, updatable = false)
     String name;
