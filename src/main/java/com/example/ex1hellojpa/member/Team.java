@@ -2,28 +2,22 @@ package com.example.ex1hellojpa.member;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @FieldDefaults(level = PRIVATE)
-@SequenceGenerator(name = "MEMBER_SEQUENCE_GENERATOR", sequenceName = "MEMBER_SEQUENCE")
-public class Member {
+public class Team {
     @Id
-    @GeneratedValue(strategy = SEQUENCE, generator = "MEMBER_SEQUENCE_GENERATOR")
+    @GeneratedValue(strategy = SEQUENCE)
+    @Column(name = "MEMBER_ID")
     Long id;
-    @Column(unique = true, length = 10, updatable = false)
     String name;
-    @Column(name = "TEAM_ID")
-    Long teamId;
 }

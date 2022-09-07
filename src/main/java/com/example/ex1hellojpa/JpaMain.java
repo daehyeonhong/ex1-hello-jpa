@@ -1,6 +1,7 @@
 package com.example.ex1hellojpa;
 
 import com.example.ex1hellojpa.member.Member;
+import com.example.ex1hellojpa.member.Team;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,23 +17,19 @@ public class JpaMain {
         transaction.begin();
 
         try {
-            final Member member1 = new Member();
-            member1.setName("감자");
-            final Member member2 = new Member();
-            member2.setName("고구마");
-            final Member member3 = new Member();
-            member3.setName("김치");
-            log.info("======================");
-            log.info("member1 : {}", member1);
-            log.info("member2 : {}", member2);
-            log.info("member3 : {}", member3);
-            entityManager.persist(member1);
-            entityManager.persist(member2);
-            entityManager.persist(member3);
-            log.info("======================");
-            log.info("member1 : {}", member1);
-            log.info("member2 : {}", member2);
-            log.info("member3 : {}", member3);
+            final Team team = new Team();
+            team.setName("TeamA");
+            entityManager.persist(team);
+
+            final Member member = new Member();
+            member.setName("member1");
+            member.setTeamId(team.getId());
+
+            entityManager.persist(member);
+
+            final Member findMember = entityManager.find(Member.class, member.getId());
+            final Long findMemberTeamId = findMember.getTeamId();
+            final Team findTeam = entityManager.find(Team.class, findMemberTeamId);
             transaction.commit();
         } catch (final Exception exception) {
             transaction.rollback();
