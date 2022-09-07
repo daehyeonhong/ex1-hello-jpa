@@ -23,13 +23,13 @@ public class JpaMain {
 
             final Member member = new Member();
             member.setName("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
 
             entityManager.persist(member);
 
             final Member findMember = entityManager.find(Member.class, member.getId());
-            final Long findMemberTeamId = findMember.getTeamId();
-            final Team findTeam = entityManager.find(Team.class, findMemberTeamId);
+            final Team findMemberTeam = findMember.getTeam();
+            System.out.println("findMemberTeam = " + findMemberTeam);
             transaction.commit();
         } catch (final Exception exception) {
             transaction.rollback();

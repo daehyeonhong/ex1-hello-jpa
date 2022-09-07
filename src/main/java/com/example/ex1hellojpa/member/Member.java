@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
@@ -24,6 +26,7 @@ public class Member {
     Long id;
     @Column(unique = true, length = 10, updatable = false)
     String name;
-    @Column(name = "TEAM_ID")
-    Long teamId;
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID")
+    Team team;
 }
