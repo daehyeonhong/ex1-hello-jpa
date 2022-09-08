@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 import static javax.persistence.GenerationType.SEQUENCE;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,4 +23,6 @@ public class Team {
     @Column(name = "MEMBER_ID")
     Long id;
     String name;
+    @OneToMany(mappedBy = "team")
+    List<Member> members = new ArrayList<>();
 }

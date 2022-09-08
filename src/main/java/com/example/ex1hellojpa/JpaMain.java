@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 @Slf4j
 public class JpaMain {
@@ -27,9 +28,14 @@ public class JpaMain {
 
             entityManager.persist(member);
 
+            entityManager.flush();
+            entityManager.clear();
+
             final Member findMember = entityManager.find(Member.class, member.getId());
-            final Team findMemberTeam = findMember.getTeam();
-            System.out.println("findMemberTeam = " + findMemberTeam);
+            final List<Member> members = findMember.getTeam().getMembers();
+            for (Member m : members) {
+                log.info("member : {}", m);
+            }
             transaction.commit();
         } catch (final Exception exception) {
             transaction.rollback();
