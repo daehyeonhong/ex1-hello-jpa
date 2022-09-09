@@ -22,20 +22,20 @@ public class JpaMain {
             team.setName("TeamA");
             entityManager.persist(team);
 
+            new Member();
             final Member member = new Member();
             member.setName("member1");
             member.setTeam(team);
-
             entityManager.persist(member);
+
+            team.getMembers().add(member);
 
             entityManager.flush();
             entityManager.clear();
 
             final Member findMember = entityManager.find(Member.class, member.getId());
             final List<Member> members = findMember.getTeam().getMembers();
-            for (Member m : members) {
-                log.info("member : {}", m);
-            }
+            for (Member m : members) log.info("member : {}", m);
             transaction.commit();
         } catch (final Exception exception) {
             transaction.rollback();
