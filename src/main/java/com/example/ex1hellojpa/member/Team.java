@@ -23,6 +23,9 @@ public class Team {
     @Column(name = "MEMBER_ID")
     Long id;
     String name;
+    /*
+    다:1 매핑 관계, 1에서 조회 할 때 추가
+     */
     @OneToMany(mappedBy = "team")
     List<Member> members = new ArrayList<>();
 }
