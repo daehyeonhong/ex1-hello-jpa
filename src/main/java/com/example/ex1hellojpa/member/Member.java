@@ -27,11 +27,6 @@ public class Member {
     @Column(unique = true, length = 10, updatable = false)
     String name;
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
     Team team;
-
-    public void changeTeam(final Team team) {
-        this.team=team;
-        team.getMembers().add(this);
-    }
 }
